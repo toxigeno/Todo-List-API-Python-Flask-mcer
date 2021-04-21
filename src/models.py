@@ -22,7 +22,7 @@ class User(db.Model):
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     label = db.Column(db.String(120), unique=True, nullable=False)
-    done = db.Column(db.String(120), unique=False, nullable=False)
+    done = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
         return '<Todo %r>' % self.username
