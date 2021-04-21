@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, String, Boolean
 
 db = SQLAlchemy()
 
@@ -15,5 +16,20 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
+            # do not serialize the password, its a security breach
+        }
+
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    label = db.Column(db.String(120), unique=True, nullable=False)
+    done = db.Column(db.String(120), unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<Todo %r>' % self.username
+
+    def serialize(self):
+        return {
+            "label": self.label,
+            "done": self.done,
             # do not serialize the password, its a security breach
         }
